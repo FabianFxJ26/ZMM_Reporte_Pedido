@@ -2,25 +2,24 @@
   <Page id="page" title="{i18n>title}">
     <VBox class="sapUiSmallMargin" fitContainer="true">
 
-<HBox class="sapUiSmallMarginBottom" justifyContent="SpaceBetween" alignItems="Center" fitContainer="false" width="100%">
-  <VBox width="30%">
-    <Label text="Proveedor" labelFor="searchField"/>
-    <SearchField id="searchField" placeholder="Ej. 48300002" width="100%" search="onSearch"/>
-  </VBox>
+      <HBox class="sapUiSmallMarginBottom" justifyContent="SpaceBetween" alignItems="Center" fitContainer="false" width="100%">
+        <VBox width="30%">
+          <Label text="Proveedor" labelFor="searchField"/>
+          <SearchField id="searchField" placeholder="Ej. 48300002" width="100%" search="onSearch"/>
+        </VBox>
 
-  <VBox width="30%">
-    <Label text="Pedido" labelFor="inputPedido"/>
-    <Input id="inputPedido" placeholder="Ej. 4500000013" width="100%" change="onSearch"/>
-  </VBox>
+        <VBox width="30%">
+          <Label text="Pedido" labelFor="inputPedido"/>
+          <Input id="inputPedido" placeholder="Ej. 4500000013" width="100%" change="onSearch"/>
+        </VBox>
 
-  <VBox width="30%">
-    <Label text="Elemento PEP" labelFor="inputElementoPEP"/>
-    <Input id="inputElementoPEP" placeholder="Ej. I.01" width="100%" change="onSearch"/>
-  </VBox>
-</HBox>
-<Button text="Exportar a Excel" icon="sap-icon://excel-attachment" press="onExport" class="sapUiTinyMarginBottom"/> 
+        <VBox width="30%">
+          <Label text="Elemento PEP" labelFor="inputElementoPEP"/>
+          <Input id="inputElementoPEP" placeholder="Ej. I.01" width="100%" change="onSearch"/>
+        </VBox>
+      </HBox>
+
       <Table id="reportTable" inset="false" headerText="Entradas de Pedido" mode="None" growing="true" growingScrollToLoad="true" items="{path: '/YY1_REPORTE_ENTRADAS_PEDID'}">
-        
         <columns>
           <Column><Text text="Pedido"/></Column>
           <Column><Text text="Fecha Clave"/></Column>
@@ -34,10 +33,10 @@
           <Column><Text text="Valor entregado con IVA"/></Column>
           <Column><Text text="Cantidad del pedido"/></Column>
         </columns>
-        
+
         <items>
           <ColumnListItem>
-            <Text text="{PurchaseOrder}"/>
+            <Link text="{PurchaseOrder}" press="onPedidoPress"/>
             <Text text="{ path: 'CreationDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' } }"/>
             <Text text="{Supplier}"/>
             <Text text="{SupplierName}"/>
@@ -51,6 +50,15 @@
           </ColumnListItem>
         </items>
       </Table>
+
+      <Toolbar>
+        <Title text="Valor total del pedido con IVA:"/>
+        <Title id="effectiveAmountPurchaseOrder" text="0.00" class="sapMTitleEmphasized" />
+
+        <Title text="Valor total pedidos del proovedor:" style="margin-left: 2rem;" />
+        <Label id="effectiveAmountSupplier" text="0.00" />
+      </Toolbar>
+
     </VBox>
   </Page>
 </mvc:View>
